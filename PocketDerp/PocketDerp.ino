@@ -1303,12 +1303,15 @@ if (Rtime==MIN) {
 RAZNOST=0;  
 }
 
+if (FOOD>0){
 if (RAZNOST>0) {
   FOOD=FOOD-(RAZNOST*GOLODOVKA);
   MIN=Rtime;
   eeprom_write_byte(&MINsave, MIN);
   eeprom_write_byte(&FOODsave, FOOD);
+}  
 }
+
 
 
 
@@ -1334,6 +1337,7 @@ if (TIMERset!=3){
   if (END==0){
     DERPx=200;
 eeprom_write_byte(&DERPxsave, DERPx);
+eeprom_write_byte(&FOODsave, FOOD);
 END=1;
   }
 }
