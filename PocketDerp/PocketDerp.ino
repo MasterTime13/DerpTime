@@ -83,8 +83,8 @@ bool select13item;
 bool animation;
 byte golodovka;
 byte select13;
-byte EEMEM dededesave;
-byte dedede;
+byte EEMEM TIMERsetsave;
+byte TIMERset;
 long REALtime11;
 bool RESTART;
 int position13;
@@ -758,7 +758,7 @@ if (muffinX>=DERPxH-10 && muffinY>=DERPyH-15 && muffinX<=DERPxH+10 && muffinY<=D
    u8g.drawBox(15,0,124,64); 
     u8g.setColorIndex(1); 
   u8g.setFont(rus7x13);
-    if(dedede==3){
+    if(TIMERset==3){
       u8g.drawStr( 22, 15, "побег");
     }else{
        u8g.drawStr( 22, 15, "голод");
@@ -803,15 +803,15 @@ if (muffinX>=DERPxH-10 && muffinY>=DERPyH-15 && muffinX<=DERPxH+10 && muffinY<=D
         u8g.drawRFrame(65,5,57,14,1);
     if(up==LOW){
        tone(soundPIN, 750, 40);
-      dedede++; //2 - внутренний, 1 - модуль, 0 - OFF
-      eeprom_write_byte(&dededesave, dedede);
+      TIMERset++; //2 - внутренний, 1 - модуль, 0 - OFF
+      eeprom_write_byte(&TIMERsetsave, TIMERset);
       up=1;
       delay(200);
     }
      if(down==LOW){
        tone(soundPIN, 750, 40);
-      dedede--;
-      eeprom_write_byte(&dededesave, dedede);
+      TIMERset--;
+      eeprom_write_byte(&TIMERsetsave, TIMERset);
       down=1;
       delay(200);
     }
@@ -886,19 +886,19 @@ if(position13==3){
 } 
   
 
-   if(dedede==0){
+   if(TIMERset==0){
   u8g.setFont(rus7x13);
   u8g.drawStr( 85, 15, "выкл");
   }
-  if(dedede==1){
+  if(TIMERset==1){
        u8g.setFont(rus7x13);
   u8g.drawStr( 75, 15, "таймер");
   }
-  if(dedede==2){
+  if(TIMERset==2){
      u8g.setFont(rus7x13);
   u8g.drawStr( 75, 15, "память");
   }
-   if(dedede==3){
+   if(TIMERset==3){
   u8g.setFont(rus7x13);
   u8g.drawStr( 85, 15, "выкл");
   }
@@ -1197,7 +1197,7 @@ void setup() {
   pinMode(2, INPUT_PULLUP);
   pinMode(3, INPUT_PULLUP);
 
-dedede = eeprom_read_byte(&dededesave);
+TIMERset = eeprom_read_byte(&TIMERsetsave);
 SKALAON = eeprom_read_byte(&SKALAONsave);
 DERPx = eeprom_read_byte(&DERPxsave);
 FRAZ = eeprom_read_byte(&FRAZsave);
@@ -1215,7 +1215,7 @@ muffinX = constrain(muffinX, 0, 128);
 muffinY = constrain(muffinY, 0, 64);
 HAPPY = constrain(HAPPY, 1, 10);
 FOOD = constrain(FOOD, 0, 100);
-dedede = constrain(dedede, 0, 3);
+TIMERset = constrain(TIMERset, 0, 3);
 select13 = constrain(select13, 1, 3);
 position13 = constrain(position13, 0, 3);
 SKALA = map(FOOD,0, 100, 64, 0);
@@ -1278,7 +1278,7 @@ if (FOOD>50){
 
 
   
-if (dedede>=2){
+if (TIMERset>=2){
   
     static unsigned long timer = millis(); 
               if (millis() - timer > 600000) {
@@ -1290,7 +1290,7 @@ if (dedede>=2){
                  }
  
 }
-if (dedede==1){
+if (TIMERset==1){
  if (RTC.read(tm)) {
 Rtime=tm.Hour;
 if (Rtime>MIN) {
@@ -1317,7 +1317,7 @@ if (RAZNOST>0) {
 //realDAY = tm.Day;
 }
 }
-Serial.print(RAZNOST);
+//Serial.print(RAZNOST);
 if (select13item==0){
   if (FOOD>50){
     MOOD=3;
@@ -1329,8 +1329,8 @@ if (FOOD<20){
     MOOD=1;
 }  
 
-if (dedede!=3){
-  if (FOOD==0){
+if (TIMERset!=3){
+  if (FOOD<=0){
   if (END==0){
     DERPx=200;
 eeprom_write_byte(&DERPxsave, DERPx);
