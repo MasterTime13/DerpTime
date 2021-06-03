@@ -31,7 +31,6 @@ U8GLIB_ST7920_128X64_1X u8g(40, 42, 44); // Строка объявления э
 
 // Ниже очень страшные вещи, которые лучше не трогать...
 byte HAPPY=10;
-byte FOOD;
 byte FOOD13;
 byte EEMEM FOODsave;
 byte DERPx=65;
@@ -699,6 +698,7 @@ if (muffinX>=DERPxH-10 && muffinY>=DERPyH-15 && muffinX<=DERPxH+10 && muffinY<=D
   direct1=1;
   select13item=0;
   FOOD13=FOOD13+17;
+  eeprom_write_byte(&FOODsave, FOOD13);
   hmmm=0;
    tone(soundPIN, 750, 100);
    right=1; 
