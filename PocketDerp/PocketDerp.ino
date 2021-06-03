@@ -19,7 +19,7 @@
 #include "rus7x13.h" // Патриотический шрифт
 #include "rus6x12.h" // Ещё один патриотический шрифт
 
-U8GLIB_ST7920_128X64_1X u8g(40, 42, 44); 
+U8GLIB_ST7920_128X64_1X u8g(40, 42, 44); // Строка объявления экрана. 
 // Контакты "A" "B" "C", соответственно с схемой (можно заменить на другие цифровые)
 
 #define soundPIN 35
@@ -55,7 +55,7 @@ bool END2;
 bool switchGLAZA;
 bool direct1=1;
 byte random1;
-boolean grom;
+bool grom;
 byte RAZNOST;
 byte SLEEP;
 byte hmmm;
@@ -71,13 +71,13 @@ bool sost;
 int switchFRAZ;
 bool nya;
 byte MOOD; //4 - восторг, 3 - улыбка, 2 - серьёзная, 1 - грустная 0 - спокойная
-boolean storm;
-boolean night;
+bool storm;
+bool night;
 byte select13menu=1;
-boolean up;
-boolean down;
-boolean left;
-boolean right;
+bool up;
+bool down;
+bool left;
+bool right;
 bool FOODterm;
 bool select13item;
 bool animation;
@@ -1308,7 +1308,7 @@ END=1;
  
  if (FOOD>0){ 
  if (RTC.read(tm)) {
-Rtime=tm.Minute;
+Rtime=tm.Hour;
 if (Rtime>MIN) {
 RAZNOST=Rtime-MIN;  
 }
