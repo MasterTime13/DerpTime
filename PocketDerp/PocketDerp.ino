@@ -1279,7 +1279,14 @@ if (FOOD>50){
 
   
 if (TIMERset>=2){
-  
+    if (FOOD<=0){
+  if (END==0){
+    DERPx=200;
+eeprom_write_byte(&DERPxsave, DERPx);
+eeprom_write_byte(&FOODsave, FOOD);
+END=1;
+  }
+}  
     static unsigned long timer = millis(); 
               if (millis() - timer > 600000) {
                 if (FOOD>0){        
@@ -1291,6 +1298,16 @@ if (TIMERset>=2){
  
 }
 if (TIMERset==1){
+   if (FOOD<=0){
+  if (END==0){
+    DERPx=200;
+eeprom_write_byte(&DERPxsave, DERPx);
+eeprom_write_byte(&FOODsave, FOOD);
+END=1;
+  }
+}
+ 
+ if (FOOD>0){ 
  if (RTC.read(tm)) {
 Rtime=tm.Hour;
 if (Rtime>MIN) {
@@ -1302,8 +1319,7 @@ RAZNOST=MIN-Rtime;
 if (Rtime==MIN) {
 RAZNOST=0;  
 }
-
-if (FOOD>0){
+  
 if (RAZNOST>0) {
   FOOD=FOOD-(RAZNOST*GOLODOVKA);
   MIN=Rtime;
@@ -1312,13 +1328,12 @@ if (RAZNOST>0) {
 }  
 }
 
-
-
-
 //HOUR = tm.Hour;
 //MIN = tm.Minute;
 //realDAY = tm.Day;
 }
+
+
 }
 //Serial.print(RAZNOST);
 if (select13item==0){
@@ -1332,17 +1347,36 @@ if (FOOD<20){
     MOOD=1;
 }  
 
-if (TIMERset!=3){
-  if (FOOD<=0){
-  if (END==0){
-    DERPx=200;
-eeprom_write_byte(&DERPxsave, DERPx);
-eeprom_write_byte(&FOODsave, FOOD);
-END=1;
-  }
+if (TIMERset==3){
+ if (FOOD>0){ 
+ if (RTC.read(tm)) {
+Rtime=tm.Hour;
+if (Rtime>MIN) {
+RAZNOST=Rtime-MIN;  
 }
+if (Rtime<MIN) {
+RAZNOST=MIN-Rtime;  
+}
+if (Rtime==MIN) {
+RAZNOST=0;  
 }
   
+if (RAZNOST>0) {
+  FOOD=FOOD-(RAZNOST*GOLODOVKA);
+  MIN=Rtime;
+  eeprom_write_byte(&MINsave, MIN);
+  eeprom_write_byte(&FOODsave, FOOD);
+}  
+}
+
+//HOUR = tm.Hour;
+//MIN = tm.Minute;
+//realDAY = tm.Day;
+}
+
+
+
+} 
 }
 
  if (RESTART==1){
