@@ -1214,7 +1214,6 @@ select13menu = constrain(select13menu, 1, 4);
 muffinX = constrain(muffinX, 0, 128);
 muffinY = constrain(muffinY, 0, 64);
 HAPPY = constrain(HAPPY, 1, 10);
-FOOD = constrain(FOOD, 0, 100);
 TIMERset = constrain(TIMERset, 0, 3);
 select13 = constrain(select13, 1, 3);
 position13 = constrain(position13, 0, 3);
@@ -1309,7 +1308,7 @@ END=1;
  
  if (FOOD>0){ 
  if (RTC.read(tm)) {
-Rtime=tm.Hour;
+Rtime=tm.Minute;
 if (Rtime>MIN) {
 RAZNOST=Rtime-MIN;  
 }
