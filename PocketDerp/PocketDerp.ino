@@ -31,7 +31,8 @@ U8GLIB_ST7920_128X64_1X u8g(40, 42, 44); // Строка объявления э
 
 // Ниже очень страшные вещи, которые лучше не трогать...
 byte HAPPY=10;
-byte FOOD=100;
+byte FOOD;
+byte FOOD13;
 byte EEMEM FOODsave;
 byte DERPx=65;
 byte EEMEM DERPxsave;
@@ -697,7 +698,7 @@ if (muffinX>=DERPxH-10 && muffinY>=DERPyH-15 && muffinX<=DERPxH+10 && muffinY<=D
   muffinY=7;
   direct1=1;
   select13item=0;
-  FOOD=FOOD+17;
+  FOOD13=FOOD13+17;
   hmmm=0;
    tone(soundPIN, 750, 100);
    right=1; 
@@ -1051,7 +1052,7 @@ if (love>=1){
               if (millis() - timer > 200) {
                 if (rukaX>DERPxH+9 && rukaY==DERPyH-21){
                   rukaY++;
-                  if (FOOD>30){
+                  if (FOOD13>30){
                    HAPPY++;
                   }             
                 }
@@ -1201,7 +1202,7 @@ TIMERset = eeprom_read_byte(&TIMERsetsave);
 SKALAON = eeprom_read_byte(&SKALAONsave);
 DERPx = eeprom_read_byte(&DERPxsave);
 FRAZ = eeprom_read_byte(&FRAZsave);
-FOOD = eeprom_read_byte(&FOODsave);
+FOOD13 = eeprom_read_byte(&FOODsave);
 MIN = eeprom_read_byte(&MINsave);
 select13menu=2;
   
@@ -1217,7 +1218,7 @@ HAPPY = constrain(HAPPY, 1, 10);
 TIMERset = constrain(TIMERset, 0, 3);
 select13 = constrain(select13, 1, 3);
 position13 = constrain(position13, 0, 3);
-SKALA = map(FOOD,0, 100, 64, 0);
+SKALA = map(FOOD13,0, 100, 64, 0);
 golodovka = constrain(golodovka, 1, 3);
 if (up==0){
   if(select13==1){
@@ -1249,7 +1250,7 @@ if (down==0){
 
 
 
-if (FOOD>50){
+if (FOOD13>50){
     if (love==1){ 
       static unsigned long timer = millis(); 
               if (millis() - timer > 5000) { 
@@ -1277,36 +1278,43 @@ if (FOOD>50){
 
 
   
-if (TIMERset>=2){
-    if (FOOD<=0){
+if (TIMERset==2){
+    if (FOOD13<=1){
   if (END==0){
     DERPx=200;
 eeprom_write_byte(&DERPxsave, DERPx);
-eeprom_write_byte(&FOODsave, FOOD);
+eeprom_write_byte(&FOODsave, FOOD13);
 END=1;
   }
+   if (END==1){
+  DERPx=200;
+ }
 }  
     static unsigned long timer = millis(); 
               if (millis() - timer > 600000) {
-                if (FOOD>0){        
-                  FOOD--; 
-                  eeprom_write_byte(&FOODsave, FOOD);
+                if (FOOD13>0){        
+                  FOOD13--; 
+                  eeprom_write_byte(&FOODsave, FOOD13);
                 } 
                timer = millis();     
                  }
  
 }
 if (TIMERset==1){
-   if (FOOD<=0){
+   if (FOOD13<=1){
   if (END==0){
     DERPx=200;
 eeprom_write_byte(&DERPxsave, DERPx);
-eeprom_write_byte(&FOODsave, FOOD);
+delay(1000);
+eeprom_write_byte(&FOODsave, FOOD13);
 END=1;
   }
+ if (END==1){
+  DERPx=200;
+ }
 }
  
- if (FOOD>0){ 
+ if (FOOD13>1){ 
  if (RTC.read(tm)) {
 Rtime=tm.Hour;
 if (Rtime>MIN) {
@@ -1320,10 +1328,11 @@ RAZNOST=0;
 }
   
 if (RAZNOST>0) {
-  FOOD=FOOD-(RAZNOST*GOLODOVKA);
+  FOOD13=FOOD13-(RAZNOST*GOLODOVKA);
   MIN=Rtime;
   eeprom_write_byte(&MINsave, MIN);
-  eeprom_write_byte(&FOODsave, FOOD);
+  delay(1000);
+  eeprom_write_byte(&FOODsave, FOOD13);
 }  
 }
 
@@ -1335,19 +1344,11 @@ if (RAZNOST>0) {
 
 }
 //Serial.print(RAZNOST);
-if (select13item==0){
-  if (FOOD>50){
-    MOOD=3;
-}
-if (FOOD>20 && FOOD<60){
-    MOOD=2;
-}
-if (FOOD<20){
-    MOOD=1;
-}  
+
+ 
 
 if (TIMERset==3){
- if (FOOD>0){ 
+ if (FOOD13>0){ 
  if (RTC.read(tm)) {
 Rtime=tm.Hour;
 if (Rtime>MIN) {
@@ -1361,10 +1362,10 @@ RAZNOST=0;
 }
   
 if (RAZNOST>0) {
-  FOOD=FOOD-(RAZNOST*GOLODOVKA);
+  FOOD13=FOOD13-(RAZNOST*GOLODOVKA);
   MIN=Rtime;
   eeprom_write_byte(&MINsave, MIN);
-  eeprom_write_byte(&FOODsave, FOOD);
+  eeprom_write_byte(&FOODsave, FOOD13);
 }  
 }
 
@@ -1376,16 +1377,30 @@ if (RAZNOST>0) {
 
 
 } 
-}
+
 
  if (RESTART==1){
    if (END2==0){
 DERPx=65;
-FOOD=100;
+FOOD13=100;
 eeprom_write_byte(&DERPxsave, DERPx);
-eeprom_write_byte(&FOODsave, FOOD);
+eeprom_write_byte(&FOODsave, FOOD13);
   END2=1;
  }
  }
-          
+
+//Serial.print(FOOD13);
+if (FOOD13>50){
+    MOOD=3;
+}else{
+  if (FOOD13>=20){
+    MOOD=2;
+}
+}
+
+if (FOOD13<20){
+    MOOD=1;
+}   
+
+       
 }
