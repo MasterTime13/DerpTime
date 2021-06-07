@@ -93,8 +93,8 @@ static unsigned char wallpaper[] {
 0x04,0x00,0x80,0x40,0x80,0x00,0x04,0x08,0x04,0x00,0x80,0x40,0x80,0x00,0x04,0x08,0x04,0x00,0x80,
 0x40,0x80,0x00,0xFF,0xFF,0x00,0xFF,0x00,0x00,0x00,0xFF,0x00,0x00,0x00,0xFF,0x00,0x00,0x00,0xFF,
 0x00,0x00,0x00,0xFF,0x00,0x00,0x00
-};
-void draw() 
+}; // задний фон (КАРТИНКА)
+void draw() // рисовальный цикл
 {
 
 
@@ -104,7 +104,7 @@ void draw()
   }else{
    storm=0;  
   }
-u8g.drawXBM( 0, 0, 8, 64, wallpaper);  
+u8g.drawXBM( 0, 0, 8, 64, wallpaper);  // рисуем задний фон
 u8g.drawXBM( 8, 0, 8, 64, wallpaper);  
 u8g.drawXBM( 16, 0, 8, 64, wallpaper);   
 u8g.drawXBM( 24, 0, 8, 64, wallpaper); 
@@ -205,8 +205,8 @@ u8g.drawBox(OKNOx,OKNOy+28,24,3);
 
 
  
-//лежит влево
-u8g.setColorIndex(0); 
+//ТЕЛО ДЕРПИ (влево)
+u8g.setColorIndex(0); // закрашиваем тело
 u8g.drawBox(DERPx-9,DERPy-13,25,12); 
 u8g.drawBox(DERPx-15,DERPy-7,25,7); 
 u8g.drawBox(DERPx-17,DERPy-5,3,5); 
@@ -218,7 +218,7 @@ u8g.setColorIndex(1);
 
 
 
-u8g.drawLine(DERPx-2,DERPy,DERPx+3,DERPy); 
+u8g.drawLine(DERPx-2,DERPy,DERPx+3,DERPy); //рисуем тело
 u8g.drawLine(DERPx+4,DERPy-1,DERPx+9,DERPy-1); 
 u8g.drawLine(DERPx-3,DERPy-1,DERPx-8,DERPy-1); 
 u8g.drawLine(DERPx-9,DERPy,DERPx-15,DERPy); 
@@ -279,7 +279,7 @@ u8g.drawPixel( DERPx+9, DERPy-12);
 DERPxH=DERPx-8;
 DERPyH=DERPy-16;
 //голова влево
-u8g.setColorIndex(0); 
+u8g.setColorIndex(0); //закрашиваем голову
 u8g.drawBox(DERPxH,DERPyH-20,9,25); 
 u8g.drawBox(DERPxH-4,DERPyH-19,15,19); 
 u8g.drawBox(DERPxH-11,DERPyH-19,5,2);
@@ -291,7 +291,8 @@ u8g.drawBox(DERPxH+3,DERPyH-22,4,2);
 u8g.drawBox(DERPxH+11,DERPyH-15,2,13);
 u8g.drawLine(DERPxH-5,DERPyH-3,DERPxH-5,DERPyH-6);    
 u8g.setColorIndex(1); 
-u8g.drawLine(DERPxH+7,DERPyH+4,DERPxH+5,DERPyH+2); 
+
+u8g.drawLine(DERPxH+7,DERPyH+4,DERPxH+5,DERPyH+2); //рисуем голову
 u8g.drawLine(DERPxH+7,DERPyH+4,DERPxH+9,DERPyH+4); 
 u8g.drawPixel( DERPxH, DERPyH+1); 
 u8g.drawLine(DERPxH-1,DERPyH+2,DERPxH-1,DERPyH+4);
@@ -355,7 +356,7 @@ u8g.drawLine(DERPxH,DERPyH-3,DERPxH-2,DERPyH-3);
 if (storm!=1){
    if (SLEEP<3){
   if(MOOD==4){
-  u8g.drawPixel(DERPxH+1, DERPyH-4);
+  u8g.drawPixel(DERPxH+1, DERPyH-4); //радостный рот
   u8g.drawPixel(DERPxH, DERPyH-2);
   u8g.drawPixel(DERPxH-1, DERPyH-2);
   u8g.drawPixel(DERPxH+1, DERPyH-3);
@@ -363,26 +364,26 @@ if (storm!=1){
 }
 
 if(MOOD==3){ 
-  u8g.drawPixel(DERPxH+1, DERPyH-4); 
+  u8g.drawPixel(DERPxH+1, DERPyH-4); //улыбка
   
 }
 if(MOOD==2){
 
-      u8g.drawPixel(DERPxH+1, DERPyH-3); 
+      u8g.drawPixel(DERPxH+1, DERPyH-3); //среднее
   
 }
 if(MOOD==1){
 
-      u8g.drawPixel(DERPxH+1, DERPyH-2); 
+      u8g.drawPixel(DERPxH+1, DERPyH-2); //недовольна
    
 }
  }
 }
 
-
+//рисуем анимацию моргания глаз
 switch (glaza) {
  case 1:
-u8g.drawPixel(DERPxH-2, DERPyH-10); 
+u8g.drawPixel(DERPxH-2, DERPyH-10); //кадр1
 u8g.drawPixel(DERPxH+2, DERPyH-10); 
 u8g.drawPixel(DERPxH+3, DERPyH-10);  
 u8g.drawPixel(DERPxH+4, DERPyH-10); 
@@ -406,7 +407,7 @@ u8g.drawPixel(DERPxH+7, DERPyH-9);
 u8g.drawPixel(DERPxH-6, DERPyH-9);
     break;
  case 2:
-u8g.drawPixel(DERPxH+2, DERPyH-9);  
+u8g.drawPixel(DERPxH+2, DERPyH-9);  //кадр2
 u8g.drawPixel(DERPxH+6, DERPyH-9);
 u8g.drawPixel(DERPxH-2, DERPyH-9);  
 u8g.drawPixel(DERPxH+3, DERPyH-9);  
@@ -425,7 +426,7 @@ u8g.drawPixel(DERPxH+7, DERPyH-9);
 u8g.drawPixel(DERPxH-6, DERPyH-9);
     break;
  case 3:
-u8g.drawPixel(DERPxH+6, DERPyH-8);
+u8g.drawPixel(DERPxH+6, DERPyH-8); //кадр3
 u8g.drawPixel(DERPxH-3, DERPyH-8);
 u8g.drawPixel(DERPxH+3, DERPyH-8);  
 u8g.drawPixel(DERPxH+4, DERPyH-8); 
@@ -439,7 +440,7 @@ u8g.drawPixel(DERPxH+6, DERPyH-9);
 u8g.drawPixel(DERPxH-6, DERPyH-9); 
     break;
  case 4:
-u8g.drawPixel(DERPxH+6, DERPyH-7); 
+u8g.drawPixel(DERPxH+6, DERPyH-7); //кадр4
 u8g.drawPixel(DERPxH-3, DERPyH-7);
 u8g.drawPixel(DERPxH+2, DERPyH-7); 
 u8g.drawPixel(DERPxH+7, DERPyH-8); 
@@ -447,11 +448,11 @@ u8g.drawPixel(DERPxH+6, DERPyH-8);
 u8g.drawPixel(DERPxH-6, DERPyH-8); 
     break;
  case 5:
-u8g.drawPixel(DERPxH+7, DERPyH-8); 
+u8g.drawPixel(DERPxH+7, DERPyH-8); //кадр5
 u8g.drawPixel(DERPxH-6, DERPyH-7); 
     break;
  case 6:
-u8g.drawPixel(DERPxH+7, DERPyH-8); 
+u8g.drawPixel(DERPxH+7, DERPyH-8);  //кадр6
 u8g.drawPixel(DERPxH-6, DERPyH-7); 
     break;
 }
@@ -459,11 +460,11 @@ u8g.drawPixel(DERPxH-6, DERPyH-7);
 u8g.drawPixel(DERPxH+6, DERPyH-7);
 if (hmmm<4){
 if (nya!=1){  
-u8g.drawLine(DERPxH+2,DERPyH-6,DERPxH+5,DERPyH-6); 
+u8g.drawLine(DERPxH+2,DERPyH-6,DERPxH+5,DERPyH-6); //глаза щурятся
 u8g.drawPixel(DERPxH-4, DERPyH-6); 
   if (night==0){
   SLEEP=0;
-   static unsigned long timer = millis(); 
+   static unsigned long timer = millis(); //таймер глаза закрылись-открылись
       if (millis() - timer > 30) {      
         if (direct1==1) {
           if (glaza!=6) {
@@ -476,7 +477,7 @@ u8g.drawPixel(DERPxH-4, DERPyH-6);
            if (glaza!=1) {  
            glaza--;     
         }else{
-            static unsigned long timer = millis(); 
+            static unsigned long timer = millis(); //таймер моргания
               if (millis() - timer > 10000) {
                   direct1=1;    
                timer = millis();     
@@ -489,7 +490,7 @@ u8g.drawPixel(DERPxH-4, DERPyH-6);
 }else{
     if (storm==1){
      if (love==1){
-      static unsigned long timer = millis(); 
+      static unsigned long timer = millis(); //таймер моргания
               if (millis() - timer > 10000) {
                 
           if (glaza!=6) {
@@ -501,7 +502,7 @@ u8g.drawPixel(DERPxH-4, DERPyH-6);
                timer = millis();     
                  }  
   }else{
-       static unsigned long timer = millis(); 
+       static unsigned long timer = millis(); //таймер моргания
               if (millis() - timer > 10000) {               
           if (glaza<=2) {
            glaza++;
@@ -512,7 +513,7 @@ u8g.drawPixel(DERPxH-4, DERPyH-6);
                  } 
   }
   }else{
-    static unsigned long timer = millis(); 
+    static unsigned long timer = millis(); //таймер моргания
               if (millis() - timer > 10000) {
                 
           if (glaza!=6) {
@@ -527,7 +528,7 @@ u8g.drawPixel(DERPxH-4, DERPyH-6);
   
 }
 }else{
- u8g.drawLine(DERPxH-2,DERPyH-7,DERPxH-2,DERPyH-8); 
+ u8g.drawLine(DERPxH-2,DERPyH-7,DERPxH-2,DERPyH-8); //рисуем открытые глаза
 u8g.drawLine(DERPxH-2,DERPyH-7,DERPxH-2,DERPyH-8); 
 u8g.drawLine(DERPxH-3,DERPyH-9,DERPxH-4,DERPyH-9);
 u8g.drawLine(DERPxH+2,DERPyH-7,DERPxH+2,DERPyH-8); 
@@ -612,7 +613,7 @@ u8g.drawPixel(DERPxH-4, DERPyH-6);
   
 }
 }else{
-u8g.drawLine(DERPxH-2,DERPyH-7,DERPxH-2,DERPyH-8); 
+u8g.drawLine(DERPxH-2,DERPyH-7,DERPxH-2,DERPyH-8); //рисуем открытые глаза
 u8g.drawLine(DERPxH-2,DERPyH-7,DERPxH-2,DERPyH-8); 
 u8g.drawLine(DERPxH-3,DERPyH-9,DERPxH-4,DERPyH-9);
 u8g.drawLine(DERPxH+2,DERPyH-7,DERPxH+2,DERPyH-8); 
@@ -629,7 +630,7 @@ u8g.drawPixel(DERPxH+7, DERPyH-7);
  
 
 
-u8g.drawPixel(DERPxH-2, DERPyH-11); 
+u8g.drawPixel(DERPxH-2, DERPyH-11); //нос?
 u8g.drawPixel(DERPxH-2, DERPyH-7); 
 u8g.drawLine(DERPxH+2,DERPyH-12+glaza,DERPxH+5,DERPyH-12+glaza); 
 u8g.drawLine(DERPxH-2,DERPyH-12+glaza,DERPxH-4,DERPyH-12+glaza); 
@@ -641,7 +642,7 @@ u8g.setColorIndex(0);
 u8g.drawBox(0,0,15,64);
 u8g.setColorIndex(1);
 
- 
+ //логика меню
 switch (select13menu) {
  case 1:
    u8g.drawRFrame(0,0,15,16,1);
@@ -692,6 +693,8 @@ if (up==0){
 if (down==0){
    muffinY++;
 }
+
+//если дерпи жрёт маффин, то
 if (muffinX>=DERPxH-10 && muffinY>=DERPyH-15 && muffinX<=DERPxH+10 && muffinY<=DERPyH+2 && SLEEP<3){
   muffinX=7;
   muffinY=7;
